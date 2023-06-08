@@ -64,3 +64,4 @@ def initialise_means(K=4,lower=-3,upper=3):
     return(np.random.uniform(low=lower,high=upper,size=(2,K)))
 
         
+##Just some nonsense
