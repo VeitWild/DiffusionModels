@@ -65,3 +65,4 @@ def initialise_means(K=4,lower=-3,upper=3):
 
         
 ##Just some nonsense
+#asd
