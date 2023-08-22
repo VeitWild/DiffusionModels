@@ -40,7 +40,7 @@ class GMM:
 
     
     def sample(self,N):
-        nr_samples=np.random.multinomial(N, self.mix_weight)
+        nr_samples=np.random.multinomial(N, self.mix_weight,)
 
         K=len(self.mix_weight)
         means = self.means
@@ -63,3 +63,19 @@ def initialise_means(K=4,lower=-3,upper=3):
     '''
     return(np.random.uniform(low=lower,high=upper,size=(2,K)))
 
+
+##Number of mixture components
+Nr_components = 2   
+weights = 1/Nr_components * np.repeat(1 , Nr_components)
+
+#Sample means unifromaly from hypercube [lower,upper]**2
+#means = jax.numpy.array([[-2,2],[2, -2] ]).transpose()
+means = initialise_means(K=Nr_components,lower = -10, upper=10)
+
+#Same covariance for all covariances
+sd = 1
+cov_base = sd**2 * np.eye(2) #sd = 0.5
+#cov_base = [[1, 0.9],[0.9,1]]
+covs = np.array([cov_base for k in range(0,Nr_components)]).transpose()
+
+gmm = GMM(mix_weight=weights, means= means, covariances=covs)

@@ -1,11 +1,11 @@
 import sys
 sys.path.append("/home/vdwild/Code/DiffusionModels")
+from data import initialise_means
+from data import GMM
 
 
 import numpy as np
 import matplotlib.pyplot as plt
-from data import initialise_means
-from data import GMM
 
 import jax
 
@@ -14,8 +14,6 @@ Nr_components = 2
 weights = 1/Nr_components * np.repeat(1 , Nr_components)
 
 #Sample means unifromaly from hypercube [lower,upper]**2
-
-
 #means = jax.numpy.array([[-2,2],[2, -2] ]).transpose()
 means = initialise_means(K=Nr_components,lower = -10, upper=10)
 
@@ -25,6 +23,7 @@ cov_base = sd**2 * np.eye(2) #sd = 0.5
 #cov_base = [[1, 0.9],[0.9,1]]
 covs = np.array([cov_base for k in range(0,Nr_components)]).transpose()
 
+gmm = GMM(mix_weight=weights, means= means, covariances=covs)
 
 
 rng= jax.random.PRNGKey(42) #
@@ -32,7 +31,7 @@ rng, key = jax.random.split(rng, num=2)  # ensures that rerunning generates new 
 
 x = jax.random.normal(key,(100,2))
 
-gmm = GMM(mix_weight=weights, means= means, covariances=covs)
+
 
 
 ### Plot Score function Lines of Density and samples
