@@ -75,6 +75,7 @@ means = initialise_means(K=Nr_components,lower = -10, upper=10)
 #Same covariance for all covariances
 sd = 1
 cov_base = sd**2 * np.eye(2) #sd = 0.5
+#this is a test
 #cov_base = [[1, 0.9],[0.9,1]]
 covs = np.array([cov_base for k in range(0,Nr_components)]).transpose()
 
